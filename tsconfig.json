@@ -1,15 +1,13 @@
 {
   "compilerOptions": {
-    "lib": [
-      "ESNext"
-    ],
-    "module": "node16",
+    "lib": ["ESNext"],
+    "module": "CommonJS",
     "target": "es2022",
     "strict": true,
     "esModuleInterop": true,
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
-    "moduleResolution": "node16",
+    "moduleResolution": "Node",
     "outDir": "./dist/",
     "sourceMap": true,
     "noImplicitAny": true,
