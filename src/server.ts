@@ -11,8 +11,6 @@ import {
 import { sendMessage, sendMessage500 } from './utils/messages';
 import { MSG_API_ROUTE_404 } from './constants';
 
-const PORT = process.env.PORT || 4000;
-
 const serverListener = async (req: IncomingMessage, res: ServerResponse) => {
   try {
     if (req.url === '/api/users' && req.method === 'GET') {
@@ -31,10 +29,15 @@ const serverListener = async (req: IncomingMessage, res: ServerResponse) => {
   }
 };
 
-const startServer = () => {
+const startServer = (isConsoleLog = true) => {
+  const PORT = process.env.PORT ?? 4000;
   const server = createServer(serverListener);
 
-  server.listen(PORT, () => console.log(`Server is running port: ${PORT}`));
+  server.listen(PORT, () => {
+    if (isConsoleLog) {
+      console.log(`Server is running port: ${PORT}`);
+    }
+  });
 
   return server;
 };

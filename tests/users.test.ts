@@ -3,7 +3,7 @@ import 'dotenv/config';
 import startServer from '../src/server';
 import { MSG_GET_USER_404, MSG_POST_USER_400 } from '../src/constants';
 
-const app = startServer();
+const app = startServer(false);
 
 // GET /api/users test with 3 senario
 describe('GET /api/users', () => {
