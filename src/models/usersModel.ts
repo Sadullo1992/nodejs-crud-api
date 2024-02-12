@@ -18,8 +18,19 @@ class Users {
 
   createUser(userData: UserData): User | undefined {
     const user = { id: uuidv4(), ...userData } as User;
-    this._users.push(user);
+    this._users = [...this._users, user];
     return this._users.at(-1);
+  }
+
+  update(id: string, userData: UserData): User | undefined {
+    const user = this._users.find((item) => item.id === id);
+    if (!user) return;
+    const updatedUser = { ...user, ...userData };
+    const updateUsers = this._users.map((item) =>
+      item.id === id ? updatedUser : item,
+    );
+    this._users = [...updateUsers];
+    return updatedUser;
   }
 }
 

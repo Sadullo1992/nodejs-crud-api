@@ -2,7 +2,12 @@ import { createServer, IncomingMessage, ServerResponse } from 'http';
 import 'dotenv';
 import 'cross-env';
 
-import { getUsers, getUser, createUser } from './controller/usersController';
+import {
+  getUsers,
+  getUser,
+  createUser,
+  updateUser,
+} from './controller/usersController';
 import { sendMessage, sendMessage500 } from './utils/messages';
 import { MSG_API_ROUTE_404 } from './constants';
 
@@ -16,6 +21,8 @@ const serverListener = async (req: IncomingMessage, res: ServerResponse) => {
       getUser(req, res);
     } else if (req.url === '/api/users' && req.method === 'POST') {
       createUser(req, res);
+    } else if (req.url?.match(/\/api\/users\/\w+/) && req.method === 'PUT') {
+      updateUser(req, res);
     } else sendMessage(res, 404, MSG_API_ROUTE_404);
   } catch {
     sendMessage500(res);
