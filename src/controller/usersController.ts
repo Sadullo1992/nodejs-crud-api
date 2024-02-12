@@ -36,10 +36,12 @@ const getUser = (req: IncomingMessage, res: ServerResponse) => {
 
 const createUser = async (req: IncomingMessage, res: ServerResponse) => {
   const userData = (await getUserParsedData(req)) as Omit<User, 'id'>;
-  const newUser = users.create(userData);
 
-  if (!userData || !newUser) sendMessage(res, 400, MSG_POST_USER_400);
-  else sendMessage201(res, newUser);
+  if (!userData) sendMessage(res, 400, MSG_POST_USER_400);
+  else {
+    const newUser = users.create(userData) as User;
+    sendMessage201(res, newUser);
+  }
 };
 
 const updateUser = async (req: IncomingMessage, res: ServerResponse) => {
@@ -48,9 +50,12 @@ const updateUser = async (req: IncomingMessage, res: ServerResponse) => {
   const isValidId = uuidValidateV4(id);
 
   if (isValidId) {
-    const updatedUser = users.update(id, userData);
-    if (!updatedUser) sendMessage(res, 404, MSG_GET_USER_404);
-    else sendMessage200(res, updatedUser);
+    if (!userData) sendMessage(res, 400, MSG_POST_USER_400);
+    else {
+      const updatedUser = users.update(id, userData);
+      if (!updatedUser) sendMessage(res, 404, MSG_GET_USER_404);
+      else sendMessage200(res, updatedUser);
+    }
   } else sendMessage(res, 400, MSG_GET_USER_400);
 };
 

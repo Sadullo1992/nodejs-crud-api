@@ -1,6 +1,5 @@
 import { createServer, IncomingMessage, ServerResponse } from 'http';
-import 'dotenv';
-import 'cross-env';
+import 'dotenv/config';
 
 import {
   getUsers,
