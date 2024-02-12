@@ -5,4 +5,4 @@ export interface User {
   hobbies: string[];
 }
 
-export type UserData = Partial<User>
+export type UserData = Partial<User>;
