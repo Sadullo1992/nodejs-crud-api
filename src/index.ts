@@ -1,6 +1,3 @@
-import fs from 'fs';
-function add(a: number, b: number): void {
-  console.log(a + b);
-}
+import startServer from './server';
 
-add(3, 4);
+startServer();

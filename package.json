@@ -2,10 +2,10 @@
   "name": "nodejs-crud-api",
   "version": "1.0.0",
   "description": "CRUD api in Nodejs",
-  "main": "./src/index.ts",
+  "main": "./dist/index.js",
   "scripts": {
-    "start": "ts-node ./src/index.ts",
-    "start:dev": "ts-node ./src/index.ts",
+    "start": "nodemon ./src/index.ts",
+    "start:dev": "nodemon ./src/index.ts",
     "start:prod": "tsc && node ./dist/index.js",
     "lint": "eslint \"src/**/*.ts\" --fix",
     "format": "prettier --write \"src/**/*.ts\"",
@@ -14,13 +14,16 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@tsconfig/node-lts": "^20.1.1",
     "nodemon": "^3.0.3",
+    "ts-loader": "^9.5.1",
     "ts-node": "^10.9.2"
   },
   "dependencies": {
     "@types/node": "^20.11.17",
     "@typescript-eslint/eslint-plugin": "^6.21.0",
     "@typescript-eslint/parser": "^6.21.0",
+    "dotenv": "^16.4.2",
     "eslint": "^8.56.0",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-prettier": "^5.1.3",
