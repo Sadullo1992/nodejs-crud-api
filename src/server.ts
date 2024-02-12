@@ -7,6 +7,7 @@ import {
   getUser,
   createUser,
   updateUser,
+  deleteUser,
 } from './controller/usersController';
 import { sendMessage, sendMessage500 } from './utils/messages';
 import { MSG_API_ROUTE_404 } from './constants';
@@ -23,6 +24,8 @@ const serverListener = async (req: IncomingMessage, res: ServerResponse) => {
       createUser(req, res);
     } else if (req.url?.match(/\/api\/users\/\w+/) && req.method === 'PUT') {
       updateUser(req, res);
+    } else if (req.url?.match(/\/api\/users\/\w+/) && req.method === 'DELETE') {
+      deleteUser(req, res);
     } else sendMessage(res, 404, MSG_API_ROUTE_404);
   } catch {
     sendMessage500(res);

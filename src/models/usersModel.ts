@@ -16,14 +16,14 @@ class Users {
     return user;
   }
 
-  createUser(userData: UserData): User | undefined {
+  create(userData: UserData): User | undefined {
     const user = { id: uuidv4(), ...userData } as User;
     this._users = [...this._users, user];
     return this._users.at(-1);
   }
 
   update(id: string, userData: UserData): User | undefined {
-    const user = this._users.find((item) => item.id === id);
+    const user = this.findUser(id);
     if (!user) return;
     const updatedUser = { ...user, ...userData };
     const updateUsers = this._users.map((item) =>
@@ -31,6 +31,14 @@ class Users {
     );
     this._users = [...updateUsers];
     return updatedUser;
+  }
+
+  delete(id: string): boolean {
+    const user = this.findUser(id);
+    if (!user) return false;
+    const filteredUsers = this._users.filter(item => item.id !== id);
+    this._users = [...filteredUsers];
+    return true;
   }
 }
 
