@@ -1,19 +1,22 @@
 import { createServer, IncomingMessage, ServerResponse } from 'http';
-import { getUsers } from './controller/usersController';
+import { getUsers, getUser } from './controller/usersController';
+
+import 'dotenv';
+import 'cross-env';
+import { sendMessage, sendMessage500 } from './utils/messages';
+import { MSG_API_ROUTE_404 } from './constants';
 
 const PORT = process.env.PORT || 4000;
-const API_ROOT = '/api/users';
 
-const serverListener = (req: IncomingMessage, res: ServerResponse) => {
-  if (req.url === API_ROOT && req.method === 'GET') {
-    getUsers(res);
-  } else {
-    res.writeHead(404, { 'Content-Type': 'application/json' });
-    res.end(
-      JSON.stringify({
-        message: 'Route not found: Please, use the api/users endpoint',
-      }),
-    );
+const serverListener = async (req: IncomingMessage, res: ServerResponse) => {
+  try {
+    if (req.url === '/api/users' && req.method === 'GET') {
+      getUsers(res);
+    } else if (req.url?.match(/\/api\/products\/\w+/) && req.method === 'GET') {
+      getUser(req, res);
+    } else sendMessage(res, 404, MSG_API_ROUTE_404);
+  } catch {
+    sendMessage500(res);
   }
 };
 
