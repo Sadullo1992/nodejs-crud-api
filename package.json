@@ -9,7 +9,7 @@
     "start:prod": "tsc && node ./dist/index.js",
     "lint": "eslint \"src/**/*.ts\" --fix",
     "format": "prettier --write \"src/**/*.ts\"",
-    "test": "jest --silent"
+    "test": "jest"
   },
   "author": "",
   "license": "ISC",
